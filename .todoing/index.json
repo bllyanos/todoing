@@ -3,7 +3,7 @@
     "id": 2,
     "title": "skill: package for distribution",
     "added_at": "2026-05-01T17:15:52.337350",
-    "status": "in_progress",
+    "status": "done",
     "labels": [
       "enhancement"
     ],
@@ -23,10 +23,42 @@
     "id": 4,
     "title": "docs: write README with usage examples",
     "added_at": "2026-05-01T17:15:52.618668",
-    "status": "todo",
+    "status": "done",
     "labels": [
       "docs"
     ],
+    "body": ""
+  },
+  {
+    "id": 5,
+    "title": "implement version subcommand",
+    "added_at": "2026-05-01T17:59:21.359817",
+    "status": "in_progress",
+    "labels": [],
+    "body": "Add a version subcommand that prints the current package version from pyproject.toml. Read version via importlib.metadata.version(\"todoing\"). Output format: \"todoing v1.0.2\". Handle case where package metadata is unavailable (fallback to \"unknown\")."
+  },
+  {
+    "id": 6,
+    "title": "improve skill and add a new skill called todoing-install (a guide to install todoing)",
+    "added_at": "2026-05-01T18:02:50.275015",
+    "status": "todo",
+    "labels": [],
+    "body": ""
+  },
+  {
+    "id": 7,
+    "title": "better rendering — maybe drop brackets like {} and [] around status and labels",
+    "added_at": "2026-05-01T18:02:51.364129",
+    "status": "todo",
+    "labels": [],
+    "body": ""
+  },
+  {
+    "id": 8,
+    "title": "support table rendering for todoing ls --table",
+    "added_at": "2026-05-01T18:02:52.413510",
+    "status": "todo",
+    "labels": [],
     "body": ""
   }
 ]
