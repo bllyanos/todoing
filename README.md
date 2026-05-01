@@ -32,7 +32,9 @@ If your ideas, plans, and to-dos should live next to your code, **doing** is for
 ## Install
 
 ```bash
-pip install doing
+uv tool install doing     # recommended: isolated environment
+pipx install doing        # or via pipx
+pip install doing         # or classic pip
 ```
 
 Requires Python 3.11+.
