@@ -1,0 +1,32 @@
+[
+  {
+    "id": 2,
+    "title": "skill: package for distribution",
+    "added_at": "2026-05-01T17:15:52.337350",
+    "status": "in_progress",
+    "labels": [
+      "enhancement"
+    ],
+    "body": "Create a proper packaging story — pypi, uv tool install, or similar."
+  },
+  {
+    "id": 3,
+    "title": "skill: shell completion",
+    "added_at": "2026-05-01T17:15:52.478460",
+    "status": "todo",
+    "labels": [
+      "enhancement"
+    ],
+    "body": ""
+  },
+  {
+    "id": 4,
+    "title": "docs: write README with usage examples",
+    "added_at": "2026-05-01T17:15:52.618668",
+    "status": "todo",
+    "labels": [
+      "docs"
+    ],
+    "body": ""
+  }
+]
