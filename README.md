@@ -181,4 +181,4 @@ python -m pytest
 
 ## License
 
-MIT © Anomaly Collective
+MIT 
