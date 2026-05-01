@@ -1,6 +1,6 @@
 [project]
 name = "todoing"
-version = "1.0.0"
+version = "1.0.2"
 description = "Local, git-friendly task manager for AI agents and humans"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -8,6 +8,9 @@ dependencies = [
     "typer>=0.15",
     "pyyaml>=6.0",
     "pydantic>=2.0",
+]
+authors = [
+  {name = "Billy Editiano"},
 ]
 
 [project.optional-dependencies]
