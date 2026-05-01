@@ -6,6 +6,7 @@ from typing import Annotated, List, Optional
 
 import typer
 
+from . import __version__
 from .constants import TaskStatus
 from .task import Store, Task
 
@@ -264,3 +265,12 @@ def reindex() -> None:
     """Rebuild index.json from all task .md files."""
     tasks = store.rebuild_index()
     typer.echo(f"Index rebuilt: {len(tasks)} tasks.")
+
+
+# ---- version ----
+
+
+@app.command()
+def version() -> None:
+    """Show the installed todoing version."""
+    typer.echo(__version__)

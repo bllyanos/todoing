@@ -33,9 +33,9 @@
     "id": 5,
     "title": "implement version subcommand",
     "added_at": "2026-05-01T17:59:21.359817",
-    "status": "in_progress",
+    "status": "done",
     "labels": [],
-    "body": "Add a version subcommand that prints the current package version from pyproject.toml. Read version via importlib.metadata.version(\"todoing\"). Output format: \"todoing v1.0.2\". Handle case where package metadata is unavailable (fallback to \"unknown\")."
+    "body": "Add a version subcommand that prints the current package version from pyproject.toml. Read version via importlib.metadata.version(\"todoing\"). Output format: \"todoing v1.0.2\". Handle case where package metadata is unavailable (fallback to \"unknown\").\n\nImplementation notes:\\n- Added __version__ to src/todoing/__init__.py using importlib.metadata.version()\\n- Added version command to CLI in src/todoing/main.py\\n- Added TestVersion test class in tests/test_cli.py\\n- Verified: runs via both 'todoing version' and 'uv run todoing version'"
   },
   {
     "id": 6,

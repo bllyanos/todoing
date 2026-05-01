@@ -1,6 +1,6 @@
 [project]
 name = "todoing"
-version = "1.0.2"
+version = "1.0.3"
 description = "Local, git-friendly task manager for AI agents and humans"
 readme = "README.md"
 requires-python = ">=3.11"

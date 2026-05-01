@@ -3,6 +3,7 @@ import os
 import pytest
 from typer.testing import CliRunner
 
+from todoing import __version__
 from todoing.main import app
 from todoing.task import Store
 
@@ -318,6 +319,16 @@ class TestDelete:
         result = runner.invoke(app, ["delete", "99", "--force"])
         assert result.exit_code == 1
         assert "not found" in result.stderr
+
+
+# ---- version ----------------------------------------------------------
+
+
+class TestVersion:
+    def test_version_output(self, runner):
+        result = runner.invoke(app, ["version"])
+        assert result.exit_code == 0
+        assert result.stdout.strip() == __version__
 
 
 # ---- reindex ----------------------------------------------------------
