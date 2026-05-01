@@ -1,15 +1,15 @@
 ---
-name: doing
-description: Use the `doing` CLI for local task management. Track, list, search, and update tasks stored as markdown files in `.doing/tasks/`. Use this whenever the user asks to manage work items, track tasks, list to-dos, or mentions "doing" in the context of task tracking.
+name: todoing
+description: Use the `todoing` CLI for local task management. Track, list, search, and update tasks stored as markdown files in `.todoing/tasks/`. Use this whenever the user asks to manage work items, track tasks, list to-dos, or mentions "todoing" in the context of task tracking.
 ---
 
-# doing
+# todoing
 
-`doing` is a local CLI task manager. Tasks live as markdown files in
-`.doing/tasks/{id}.md`, indexed by `.doing/index.json`. Everything is
+`todoing` is a local CLI task manager. Tasks live as markdown files in
+`.todoing/tasks/{id}.md`, indexed by `.todoing/index.json`. Everything is
 git-trackable flat files — no databases, no servers.
 
-Always run `doing` from the repo root so `.doing/` is discovered correctly.
+Always run `todoing` from the repo root so `.todoing/` is discovered correctly.
 The directory is auto-created on first use.
 
 ## Statuses
@@ -25,12 +25,12 @@ IDs are sequential integers. `#1` and `1` are equivalent.
 
 ## Commands
 
-### `doing add "title"`
+### `todoing add "title"`
 
 Create a task. Auto-assigns the next ID. Prints the ID.
 
 ```
-doing add "set up CI pipeline"
+todoing add "set up CI pipeline"
 # (#3) set up CI pipeline
 ```
 
@@ -39,12 +39,12 @@ Options:
 - `-s, --status <status>` — initial status (default `todo`)
 - `-b, --body "text"` — initial description body
 
-### `doing ls`
+### `todoing ls`
 
 List tasks, newest first.
 
 ```
-doing ls
+todoing ls
 # (#3) [p0,infra] {🏃} set up CI pipeline
 # (#2) [p3] {🏃} review onboarding docs
 # (#1) [p2,p0] {🏃} initiate projects
@@ -56,76 +56,76 @@ Options:
 - `-l, --label <label>` — filter by label (repeatable, AND logic)
 - `--scan` — bypass index, scan `.md` files directly
 
-### `doing see <id>`
+### `todoing see <id>`
 
 Print the raw markdown for a task.
 
 ```
-doing see 3
+todoing see 3
 ---
 id: 3
 title: set up CI pipeline
 ---
 ```
 
-### `doing body <id> "text"`
+### `todoing body <id> "text"`
 
 Replace the entire description body (below the frontmatter).
 
-### `doing append <id> "text"`
+### `todoing append <id> "text"`
 
 Append text to the description body. Adds a blank-line separator if the body
 is non-empty.
 
-### `doing status <id> <status>`
+### `todoing status <id> <status>`
 
 Change task status. Accepts: `todo`, `in_progress`, `done`, `cancelled`.
 
 ```
-doing status 1 done
+todoing status 1 done
 ```
 
-### `doing label <id> <ops...>`
+### `todoing label <id> <ops...>`
 
 Modify labels. Prefix with `+` to add, `-` to remove. Use `--` separator
 before any removal that starts with `-`.
 
 ```
-doing label 1 +p0          # add p0
-doing label 1 -- -p2       # remove p2 (note the --)
-doing label 1 +bug --clear # clear all labels, then add bug
+todoing label 1 +p0          # add p0
+todoing label 1 -- -p2       # remove p2 (note the --)
+todoing label 1 +bug --clear # clear all labels, then add bug
 ```
 
-### `doing search "query"`
+### `todoing search "query"`
 
 Case-insensitive search across title, labels, status, and body.
 
 ```
-doing search CI
+todoing search CI
 # (#3) [p0,infra] {🏃} set up CI pipeline
 ```
 
-### `doing delete <id>`
+### `todoing delete <id>`
 
 Delete a task. Prompts for confirmation unless `--force`.
 
 ```
-doing delete 4 --force
+todoing delete 4 --force
 ```
 
-### `doing reindex`
+### `todoing reindex`
 
 Rebuild `index.json` from all `.md` files. Recovery command; not needed
 during normal use.
 
 ## AI agent usage
 
-- **No `$EDITOR`**: you can't run `doing edit <id>`. Use `body`/`append` to
+- **No `$EDITOR`**: you can't run `todoing edit <id>`. Use `body`/`append` to
   modify descriptions, `status`/`label` for metadata.
 - **Always use `--force`** with `delete` to skip interactive prompts.
-- `doing see <id>` outputs the raw file — you can also read
-  `.doing/tasks/{id}.md` directly with file tools.
-- `doing ls -n 5` is a fast way to get recent context before working.
-- When you start working on something, run `doing status <id> in_progress`.
-  When done, `doing status <id> done`.
-- The index is JSON. If `doing` behaves oddly, run `doing reindex` to rebuild.
+- `todoing see <id>` outputs the raw file — you can also read
+  `.todoing/tasks/{id}.md` directly with file tools.
+- `todoing ls -n 5` is a fast way to get recent context before working.
+- When you start working on something, run `todoing status <id> in_progress`.
+  When done, `todoing status <id> done`.
+- The index is JSON. If `todoing` behaves oddly, run `todoing reindex` to rebuild.

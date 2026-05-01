@@ -188,8 +188,8 @@ def label(
 
     \b
     Examples:
-        doing label 1 +p0 -p2        add p0, remove p2
-        doing label 1 +bug --clear   clear all, then add bug
+        todoing label 1 +p0 -p2        add p0, remove p2
+        todoing label 1 +bug --clear   clear all, then add bug
     """
     nid = store.resolve_id(id)
     task = store.read_task(nid)

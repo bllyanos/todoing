@@ -3,8 +3,8 @@ from datetime import datetime
 
 import pytest
 
-from doing.constants import DOING_DIR, INDEX_FILE, TASKS_DIR, TaskStatus
-from doing.task import Store, Task
+from todoing.constants import TODOING_DIR, INDEX_FILE, TASKS_DIR, TaskStatus
+from todoing.task import Store, Task
 
 
 # ---- ensure -----------------------------------------------------------
@@ -12,13 +12,13 @@ from doing.task import Store, Task
 class TestEnsure:
     def test_creates_directories(self, tmp_store: Store) -> None:
         tmp_store.ensure()
-        assert tmp_store._doing.exists()
+        assert tmp_store._todoing.exists()
         assert tmp_store._tasks.exists()
 
     def test_idempotent(self, tmp_store: Store) -> None:
         tmp_store.ensure()
         tmp_store.ensure()
-        assert tmp_store._doing.is_dir()
+        assert tmp_store._todoing.is_dir()
         assert tmp_store._tasks.is_dir()
 
 

@@ -5,7 +5,7 @@ from pathlib import Path
 import yaml
 from pydantic import BaseModel, Field
 
-from .constants import DOING_DIR, INDEX_FILE, STATUS_ICONS, TASKS_DIR, TaskStatus
+from .constants import TODOING_DIR, INDEX_FILE, STATUS_ICONS, TASKS_DIR, TaskStatus
 
 
 class Task(BaseModel):
@@ -46,14 +46,14 @@ class Task(BaseModel):
 class Store:
     def __init__(self, root: Path | None = None):
         self._root = Path(root) if root else Path.cwd()
-        self._doing = self._root / DOING_DIR
-        self._tasks = self._doing / TASKS_DIR
-        self._index_path = self._doing / INDEX_FILE
+        self._todoing = self._root / TODOING_DIR
+        self._tasks = self._todoing / TASKS_DIR
+        self._index_path = self._todoing / INDEX_FILE
 
     # ---- ensure ----
 
     def ensure(self) -> None:
-        self._doing.mkdir(parents=True, exist_ok=True)
+        self._todoing.mkdir(parents=True, exist_ok=True)
         self._tasks.mkdir(parents=True, exist_ok=True)
 
     # ---- IDs ----

@@ -3,8 +3,8 @@ from datetime import datetime
 import pytest
 from pydantic import ValidationError
 
-from doing.constants import TaskStatus
-from doing.task import Task
+from todoing.constants import TaskStatus
+from todoing.task import Task
 
 
 class TestTaskConstruction:

@@ -3,15 +3,15 @@ import os
 import pytest
 from typer.testing import CliRunner
 
-from doing.main import app
-from doing.task import Store
+from todoing.main import app
+from todoing.task import Store
 
 
 @pytest.fixture(autouse=True)
 def isolated_store(tmp_path, monkeypatch):
     """Replace the module-level store with one rooted in tmp_path."""
     s = Store(root=tmp_path)
-    monkeypatch.setattr("doing.main.store", s)
+    monkeypatch.setattr("todoing.main.store", s)
 
 
 @pytest.fixture

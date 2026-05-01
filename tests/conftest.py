@@ -3,8 +3,8 @@ from pathlib import Path
 
 import pytest
 
-from doing.constants import TaskStatus
-from doing.task import Store, Task
+from todoing.constants import TaskStatus
+from todoing.task import Store, Task
 
 
 @pytest.fixture

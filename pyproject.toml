@@ -1,6 +1,6 @@
 [project]
-name = "doing"
-version = "0.1.0"
+name = "todoing"
+version = "1.0.0"
 description = "Local, git-friendly task manager for AI agents and humans"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -16,7 +16,7 @@ dev = [
 ]
 
 [project.scripts]
-doing = "doing.main:app"
+todoing = "todoing.main:app"
 
 [build-system]
 requires = ["hatchling"]

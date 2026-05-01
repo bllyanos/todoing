@@ -15,6 +15,6 @@ STATUS_ICONS: dict[TaskStatus, str] = {
     TaskStatus.CANCELLED: "\u274c",     # ❌
 }
 
-DOING_DIR = ".doing"
+TODOING_DIR = ".todoing"
 TASKS_DIR = "tasks"
 INDEX_FILE = "index.json"
