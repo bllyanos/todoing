@@ -18,6 +18,7 @@ python -m pytest tests/test_store.py::TestNextId::test_empty_tasks_dir_returns_1
 ## Conventions
 
 - **Commit messages**: conventional commits (`feat:`, `fix:`, `chore:`, etc.)
+- **Never push to remote** — only commit locally
 - No pre-commit hooks or CI configured yet
 - No linter or typechecker configured yet
 
