@@ -244,6 +244,10 @@ class TestFilter:
         result = store_with_tasks.filter()
         assert [t.id for t in result] == [3, 2, 1]
 
+    def test_filter_reverse_oldest_first(self, store_with_tasks: Store) -> None:
+        result = store_with_tasks.filter(reverse=True)
+        assert [t.id for t in result] == [1, 2, 3]
+
     def test_query_in_title(self, store_with_tasks: Store) -> None:
         result = store_with_tasks.filter(q="second")
         assert len(result) == 1

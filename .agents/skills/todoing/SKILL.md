@@ -54,6 +54,8 @@ Options:
 - `-n, --limit <N>` — show only N newest tasks (default 0 = all)
 - `-s, --status <status>` — filter by status
 - `-l, --label <label>` — filter by label (repeatable, AND logic)
+- `-q, --query <text>` — search query (case-insensitive, matches title/body/labels/status)
+- `-r, --reverse` — reverse sort order (oldest first)
 - `--scan` — bypass index, scan `.md` files directly
 
 ### `todoing see <id>`
@@ -99,14 +101,7 @@ todoing label 1 -- -p2       # remove p2 (note the --)
 todoing label 1 +bug --clear # clear all labels, then add bug
 ```
 
-### `todoing search "query"`
 
-Case-insensitive search across title, labels, status, and body.
-
-```
-todoing search CI
-# (#3) [p0,infra] {🏃} set up CI pipeline
-```
 
 ### `todoing delete <id>`
 
@@ -171,7 +166,7 @@ todoing add "Refactor auth module" -l enhancement -s in_progress -b "Current app
 ### Search for something before duplicating work
 
 ```bash
-todoing search "auth"
+todoing ls -q "auth"
 ```
 
 ## AI agent usage

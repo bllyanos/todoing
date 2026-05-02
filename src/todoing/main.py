@@ -61,25 +61,15 @@ def ls(
     limit: Annotated[int, typer.Option("-n", "--limit", help="Show only N newest tasks (0 = all)")] = 0,
     status: Annotated[Optional[str], typer.Option("-s", "--status", help="Filter by status")] = None,
     labels: Annotated[List[str], typer.Option("-l", "--label", help="Filter by label (repeatable, AND logic)")] = [],
+    query: Annotated[Optional[str], typer.Option("-q", "--query", help="Search query (case-insensitive, matches title/body/labels/status)")] = None,
+    reverse: Annotated[bool, typer.Option("-r", "--reverse", help="Reverse sort order (oldest first)")] = False,
     scan: Annotated[bool, typer.Option("--scan", help="Bypass index, scan .md files directly")] = False,
 ) -> None:
     """List tasks, newest first."""
     if scan:
-        tasks = store.rebuild_index()
-    else:
-        tasks = store.read_index()
-
+        store.rebuild_index()
     st = _resolve_status(status) if status else None
-    if st:
-        tasks = [t for t in tasks if t.status == st]
-    if labels:
-        labels_lower = {lbl.lower() for lbl in labels}
-        tasks = [t for t in tasks if labels_lower <= {l.lower() for l in t.labels}]
-
-    tasks.sort(key=lambda t: t.id, reverse=True)
-    if limit > 0:
-        tasks = tasks[:limit]
-
+    tasks = store.filter(status=st, labels=labels if labels else None, limit=limit, q=query, reverse=reverse)
     if not tasks:
         typer.echo("No tasks.")
         return
@@ -219,21 +209,6 @@ def label(
     store.write_task(task)
     store.sync_index_on_mutation(task)
     typer.echo(f"(#{task.id}) labels -> [{', '.join(task.labels)}]")
-
-
-# ---- search ----
-
-@app.command()
-def search(
-    query: Annotated[str, typer.Argument(help="Search query (case-insensitive)")],
-) -> None:
-    """Search tasks by title, labels, status, and body."""
-    tasks = store.filter(q=query)
-    if not tasks:
-        typer.echo("No matches.")
-        return
-    for t in tasks:
-        typer.echo(t.format_list())
 
 
 # ---- delete ----

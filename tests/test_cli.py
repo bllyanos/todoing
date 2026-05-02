@@ -104,6 +104,63 @@ class TestLs:
         assert len(lines) == 1
         assert "both" in lines[0]
 
+    def test_query_matches_title(self, runner):
+        runner.invoke(app, ["add", "deploy to production"])
+        runner.invoke(app, ["add", "fix typo"])
+        result = runner.invoke(app, ["ls", "-q", "deploy"])
+        assert result.exit_code == 0
+        assert "deploy to production" in result.stdout
+        assert "fix typo" not in result.stdout
+
+    def test_query_matches_body(self, runner):
+        runner.invoke(app, ["add", "task 1", "-b", "secret code"])
+        runner.invoke(app, ["add", "task 2", "-b", "public doc"])
+        result = runner.invoke(app, ["ls", "-q", "secret"])
+        assert "task 1" in result.stdout
+        assert "task 2" not in result.stdout
+
+    def test_query_matches_labels(self, runner):
+        runner.invoke(app, ["add", "bug fix", "-l", "critical"])
+        runner.invoke(app, ["add", "feature", "-l", "minor"])
+        result = runner.invoke(app, ["ls", "-q", "critical"])
+        assert "bug fix" in result.stdout
+        assert "feature" not in result.stdout
+
+    def test_query_case_insensitive(self, runner):
+        runner.invoke(app, ["add", "Case Sensitive"])
+        result = runner.invoke(app, ["ls", "-q", "case"])
+        assert "Case Sensitive" in result.stdout
+
+    def test_query_no_matches(self, runner):
+        runner.invoke(app, ["add", "only task"])
+        result = runner.invoke(app, ["ls", "-q", "zzz"])
+        assert result.exit_code == 0
+        assert "No tasks." in result.stdout
+
+    def test_reverse_oldest_first(self, runner):
+        runner.invoke(app, ["add", "first"])
+        runner.invoke(app, ["add", "second"])
+        result = runner.invoke(app, ["ls", "-r"])
+        lines = [l for l in result.stdout.strip().split("\n") if l]
+        assert "first" in lines[0]
+        assert "second" in lines[1]
+
+    def test_combined_query_and_status(self, runner):
+        runner.invoke(app, ["add", "fix bug", "-s", "in_progress"])
+        runner.invoke(app, ["add", "fix typo", "-s", "done"])
+        runner.invoke(app, ["add", "fix docs", "-s", "done"])
+        result = runner.invoke(app, ["ls", "-q", "fix", "-s", "done"])
+        lines = [l for l in result.stdout.strip().split("\n") if l]
+        assert len(lines) == 2
+
+    def test_combined_query_and_label(self, runner):
+        runner.invoke(app, ["add", "auth bug", "-l", "bug", "-s", "in_progress"])
+        runner.invoke(app, ["add", "ui bug", "-l", "bug"])
+        result = runner.invoke(app, ["ls", "-q", "auth", "-l", "bug"])
+        lines = [l for l in result.stdout.strip().split("\n") if l]
+        assert len(lines) == 1
+        assert "auth bug" in lines[0]
+
 
 # ---- see --------------------------------------------------------------
 
@@ -251,43 +308,6 @@ class TestLabel:
         result = runner.invoke(app, ["label", "99", "+tag"])
         assert result.exit_code == 1
         assert "not found" in result.stderr
-
-
-# ---- search -----------------------------------------------------------
-
-class TestSearch:
-    def test_matches_title(self, runner):
-        runner.invoke(app, ["add", "deploy to production"])
-        runner.invoke(app, ["add", "fix typo"])
-        result = runner.invoke(app, ["search", "deploy"])
-        assert result.exit_code == 0
-        assert "deploy to production" in result.stdout
-        assert "fix typo" not in result.stdout
-
-    def test_matches_body(self, runner):
-        runner.invoke(app, ["add", "task 1", "-b", "secret code"])
-        runner.invoke(app, ["add", "task 2", "-b", "public doc"])
-        result = runner.invoke(app, ["search", "secret"])
-        assert "task 1" in result.stdout
-        assert "task 2" not in result.stdout
-
-    def test_matches_labels(self, runner):
-        runner.invoke(app, ["add", "bug fix", "-l", "critical"])
-        runner.invoke(app, ["add", "feature", "-l", "minor"])
-        result = runner.invoke(app, ["search", "critical"])
-        assert "bug fix" in result.stdout
-        assert "feature" not in result.stdout
-
-    def test_case_insensitive(self, runner):
-        runner.invoke(app, ["add", "Case Sensitive"])
-        result = runner.invoke(app, ["search", "case"])
-        assert "Case Sensitive" in result.stdout
-
-    def test_no_matches(self, runner):
-        runner.invoke(app, ["add", "only task"])
-        result = runner.invoke(app, ["search", "zzz"])
-        assert result.exit_code == 0
-        assert "No matches." in result.stdout
 
 
 # ---- delete -----------------------------------------------------------

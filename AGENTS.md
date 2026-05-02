@@ -7,12 +7,12 @@ uv sync
 source .venv/bin/activate
 ```
 
-## Test
+## Test (use `uv run` instead of `python -m pytest`)
 
 ```bash
-python -m pytest        # all 108 tests
-python -m pytest tests/test_store.py::TestNextId  # single class
-python -m pytest tests/test_store.py::TestNextId::test_empty_tasks_dir_returns_1  # single test
+uv run pytest             # all tests
+uv run pytest tests/test_store.py::TestNextId  # single class
+uv run pytest tests/test_store.py::TestNextId::test_empty_tasks_dir_returns_1  # single test
 ```
 
 ## Conventions

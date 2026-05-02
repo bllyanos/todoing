@@ -94,6 +94,8 @@ todoing ls                  # all tasks, newest first
 todoing ls -n 5             # latest 5
 todoing ls -s in_progress   # filter by status
 todoing ls -l p0 -l backend # filter by labels (AND)
+todoing ls -q auth          # search by title/body/labels/status
+todoing ls -r               # oldest first
 ```
 
 ### `see` — View a task
@@ -125,13 +127,6 @@ todoing label 4 +bug --clear      # clear all, then add bug
 ```bash
 todoing body 4 "Full rewrite of the auth flow."     # replace body
 todoing append 4 "Also update token refresh logic."  # append to body
-```
-
-### `search` — Full-text search
-
-```bash
-todoing search "auth"
-# (#4) [p0] {🏃} Refactor auth module
 ```
 
 ### `delete` — Remove a task

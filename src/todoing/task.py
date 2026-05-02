@@ -147,6 +147,7 @@ class Store:
         labels: list[str] | None = None,
         limit: int = 0,
         q: str | None = None,
+        reverse: bool = False,
     ) -> list[Task]:
         tasks = self.read_index()
         if status:
@@ -163,7 +164,7 @@ class Store:
                 or ql in " ".join(t.labels).lower()
                 or ql == t.status.value
             ]
-        tasks.sort(key=lambda t: t.id, reverse=True)
+        tasks.sort(key=lambda t: t.id, reverse=not reverse)
         if limit > 0:
             tasks = tasks[:limit]
         return tasks
