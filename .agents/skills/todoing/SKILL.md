@@ -51,7 +51,7 @@ todoing ls
 ```
 
 Options:
-- `-n, --limit <N>` — show only N newest tasks
+- `-n, --limit <N>` — show only N newest tasks (default 0 = all)
 - `-s, --status <status>` — filter by status
 - `-l, --label <label>` — filter by label (repeatable, AND logic)
 - `--scan` — bypass index, scan `.md` files directly
@@ -90,6 +90,9 @@ todoing status 1 done
 Modify labels. Prefix with `+` to add, `-` to remove. Use `--` separator
 before any removal that starts with `-`.
 
+Options:
+- `--clear` — clear all existing labels before applying operations
+
 ```
 todoing label 1 +p0          # add p0
 todoing label 1 -- -p2       # remove p2 (note the --)
@@ -107,10 +110,19 @@ todoing search CI
 
 ### `todoing delete <id>`
 
-Delete a task. Prompts for confirmation unless `--force`.
+Delete a task. Prompts for confirmation unless `--force` / `-f`.
 
 ```
-todoing delete 4 --force
+todoing delete 4 -f
+```
+
+### `todoing version`
+
+Show the installed todoing version.
+
+```
+todoing version
+# 1.0.5
 ```
 
 ### `todoing reindex`
@@ -118,14 +130,69 @@ todoing delete 4 --force
 Rebuild `index.json` from all `.md` files. Recovery command; not needed
 during normal use.
 
+## Common workflows for AI agents
+
+These are copy-paste ready. Run them to drive work naturally.
+
+### Start working on a task
+
+```bash
+todoing append 3 "Starting work: investigating the issue."
+todoing status 3 in_progress
+```
+
+### Log progress during a task
+
+```bash
+todoing append 3 "Fixed the race condition in the connection pool."
+```
+
+### Complete a task
+
+```bash
+todoing append 3 "Done. Final state: all 42 tests pass."
+todoing status 3 done
+```
+
+### Check what needs attention
+
+```bash
+todoing ls -s todo -n 10   # next 10 unfinished tasks
+todoing ls -s in_progress   # what's currently being worked on
+todoing ls -l p0            # high-priority items
+```
+
+### Create a task and assign it to yourself
+
+```bash
+todoing add "Refactor auth module" -l enhancement -s in_progress -b "Current approach is brittle."
+```
+
+### Search for something before duplicating work
+
+```bash
+todoing search "auth"
+```
+
 ## AI agent usage
 
+- **Never read `.todoing/` files directly.** Always use the CLI (`todoing see`,
+  `todoing ls`, etc.). The index is the source of truth. Only read `.md` files
+  directly when something is clearly broken (e.g., `todoing` errors out).
 - **No `$EDITOR`**: you can't run `todoing edit <id>`. Use `body`/`append` to
   modify descriptions, `status`/`label` for metadata.
-- **Always use `--force`** with `delete` to skip interactive prompts.
-- `todoing see <id>` outputs the raw file — you can also read
-  `.todoing/tasks/{id}.md` directly with file tools.
+- **Always use `-f` / `--force`** with `delete` to skip interactive prompts.
+- `todoing see <id>` outputs the raw file.
 - `todoing ls -n 5` is a fast way to get recent context before working.
+- Filter by status to find relevant tasks:
+  `todoing ls -s in_progress` → active tasks
+  `todoing ls -s todo` → pending tasks
 - When you start working on something, run `todoing status <id> in_progress`.
   When done, `todoing status <id> done`.
 - The index is JSON. If `todoing` behaves oddly, run `todoing reindex` to rebuild.
+
+## Self-dogfooding
+
+**todoing** tracks its own development. Every task in `.todoing/tasks/` is a
+feature, bug, or idea for todoing itself. When working on this repo, use
+`todoing ls -n 5` to see what's next before starting.

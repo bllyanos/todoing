@@ -8,8 +8,8 @@
 <p align="center">
   <a href="https://pypi.org/project/todoing"><img src="https://img.shields.io/pypi/v/todoing?color=blue" alt="PyPI"></a>
   <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-%3E%3D3.11-blue" alt="Python"></a>
-  <a href="https://github.com/anomalyco/todoing/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="License"></a>
-  <a href="https://github.com/anomalyco/todoing/actions"><img src="https://img.shields.io/badge/tests-108%20passed-brightgreen" alt="Tests"></a>
+  <a href="https://github.com/bllyanos/todoing/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="License"></a>
+  <a href="https://github.com/bllyanos/todoing/actions"><img src="https://img.shields.io/badge/tests-108%20passed-brightgreen" alt="Tests"></a>
 </p>
 
 ---
@@ -172,7 +172,7 @@ No prompts, no TUI, no friction.
 ## Development
 
 ```bash
-git clone https://github.com/anomalyco/todoing
+git clone https://github.com/bllyanos/todoing
 cd todoing
 uv sync
 source .venv/bin/activate
