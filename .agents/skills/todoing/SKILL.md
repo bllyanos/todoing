@@ -190,6 +190,10 @@ todoing search "auth"
 - When you start working on something, run `todoing status <id> in_progress`.
   When done, run `todoing status <id> done` immediately — never leave a task
   in `in_progress` after completing it.
+- The task body is full markdown (not plaintext). Use it for plans, research
+  notes, links, logs, or anything else. A task's body is the canonical place
+  to document context and progress so other agents can pick up where you left
+  off.
 - Right after finishing any task, always update its status to `done`. This is
   the single most important habit: completed work without a status update is
   invisible to `todoing ls` and other agents.
