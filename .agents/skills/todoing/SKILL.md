@@ -188,7 +188,11 @@ todoing search "auth"
   `todoing ls -s in_progress` → active tasks
   `todoing ls -s todo` → pending tasks
 - When you start working on something, run `todoing status <id> in_progress`.
-  When done, `todoing status <id> done`.
+  When done, run `todoing status <id> done` immediately — never leave a task
+  in `in_progress` after completing it.
+- Right after finishing any task, always update its status to `done`. This is
+  the single most important habit: completed work without a status update is
+  invisible to `todoing ls` and other agents.
 - The index is JSON. If `todoing` behaves oddly, run `todoing reindex` to rebuild.
 
 ## Self-dogfooding
