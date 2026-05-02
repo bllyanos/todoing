@@ -24,3 +24,8 @@ todoing = "todoing.main:app"
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.409",
+]
